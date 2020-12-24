@@ -1,13 +1,12 @@
 <template>
-<div> l </div>
+<Layout>l</Layout>
 </template>
 
 <script lang="ts">
+
 export default {
-name: "Labels"
+name: "Labels",
+
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
