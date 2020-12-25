@@ -2,7 +2,7 @@
 
   <Layout class-prefix="layout">
     <Numbers/>
-    <Types/>
+    <Types :xxx ='333'/>
     <Notes/>
     <Tags/>
   </Layout>
