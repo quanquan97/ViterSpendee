@@ -1,52 +1,67 @@
 <template>
   <div class="tags">
     <div class="new">
-      <button>新增标签</button>
+      <button @click="create">新增标签</button>
     </div>
     <ul class="current">
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li><li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
+      <li v-for="tag in dataSource" :key="tag"
+          :class="{selected: selectedTags.indexOf(tag)>=0}"
+          @click="toggle(tag)"> {{ tag }}
+      </li>
 
     </ul>
   </div>
 </template>
 
 
-
 <script lang="ts">
-export default {
-name: "Tags"
+import Vue from 'vue';
+import {Component, Prop} from 'vue-property-decorator';
+
+@Component
+export default class Tags extends Vue {
+  @Prop() readonly dataSource: string[] | undefined;
+  selectedTags: string[] = [];
+
+   toggle(tag: string) {
+    const index = this.selectedTags.indexOf(tag);
+    if (index >= 0) { this.selectedTags.splice(index, 1);}
+    else {this.selectedTags.push(tag);}
+    this.$emit('update:value', this.selectedTags)
+  }
+  create(){
+     const name = window.prompt("请输入标签名")
+    if(name==''){
+      window.alert('标签名不能为空')
+    }else if(this.dataSource){
+      this.$emit('update:dataSource' ,
+           [...this.dataSource,name]);
+    }
+  }
+
+
+
+
 }
 </script>
 
 
-
 <style lang="scss" scoped>
-.tags{
+.tags {
   display: flex;
   flex-direction: column-reverse;
   flex-grow: 1;
   font-size: 14px;
   padding: 16px;
-  > .current{
+
+  > .current {
     display: flex;
     flex-wrap: wrap;
-    >li{
-      background: #d9d9d9;
-      $h:24px;
+
+    > li {
+      $bg: #d9d9d9;
+      background: $bg;
+      $h: 24px;
       height: $h;
       //想要垂直居中有两种方式：只有一行字的情况下让height等于line-height,就像此时。另一种：如果两行及其以上就用display-flex
       line-height: $h;
@@ -54,14 +69,23 @@ name: "Tags"
       padding: 0 18px;
       margin-right: 12px;
       margin-top: 4px;
-    }}
-  >.new{
-    padding-top: 16px ;
-    button{
+
+      & .selected {
+        background-color: darken ($bg, 50%);
+        color:white;
+      }
+
+    }
+  }
+
+  > .new {
+    padding-top: 16px;
+
+    button {
       background-color: transparent;
-      border: none  ;
+      border: none;
       border-bottom: 1px solid;
-      color:#999;
+      color: #999;
       padding: 0 4px;
 
     }

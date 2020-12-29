@@ -1,8 +1,8 @@
 <template>
   <div>
     <ul class="types">
-      <li :class="type==='-'&&'selected'" @click="selectType('-')">支出</li>
-      <li :class="type==='+'&&'selected'" @click="selectType('+')"> 收入</li>
+      <li :class="value==='-'&&'selected'" @click="selectType('-')">支出</li>
+      <li :class="value==='+'&&'selected'" @click="selectType('+')"> 收入</li>
     </ul>
   </div>
 </template>
@@ -10,11 +10,11 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component//声明一个类，在上面加上装饰器--修饰在class上 是一个组件 告诉ts 下面代码要被处理成data和method
 export default class Types extends Vue {
-  type = '-'; //data
+  @Prop() readonly value!: string;
 
   //@Prop(Number) xxx: number | undefined
   //undefined是初始值，一旦写了在后面就需要if判断检查，虽然麻烦，但ts会保证严谨性--有追求的前端
@@ -27,8 +27,9 @@ export default class Types extends Vue {
     if (type !== '-' && type !== '+') {
       throw new Error('type is unknown');
     }
-    this.type = type;
+    this.$emit('update: value',type)
   } //method
+
 
 //   mounted(){
 // //仔细理解下面一段代码 ，以前在控制台出现的bug 现在ts就告诉我了 这就是ts的严谨之处
