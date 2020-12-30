@@ -77,6 +77,7 @@
 
 <template>
   <Layout class-prefix="layout">
+    {{record}}
     <Numbers :value.sync="record.amount" @submit="saveRecord"/>
     <Types :value.sync="record.type"/>
     <div class="notes">
