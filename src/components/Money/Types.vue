@@ -1,8 +1,12 @@
 <template>
   <div>
     <ul class="types">
-      <li :class="value==='-'&&'selected'" @click="selectType('-')">支出</li>
-      <li :class="value==='+'&&'selected'" @click="selectType('+')"> 收入</li>
+      <li :class="value === '-' && 'selected'"
+          @click="selectType('-')">支出
+      </li>
+      <li :class="value === '+' && 'selected'"
+          @click="selectType('+')">收入
+      </li>
     </ul>
   </div>
 </template>
@@ -11,6 +15,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
+
 
 @Component//声明一个类，在上面加上装饰器--修饰在class上 是一个组件 告诉ts 下面代码要被处理成data和method
 export default class Types extends Vue {
@@ -23,12 +28,14 @@ export default class Types extends Vue {
   //xxx 属性名
   //number |undefined 告诉ts  xxx 的类型---编译时
 
-  selectType(type: string) { //type需要一个类型
-    if (type !== '-' && type !== '+') {
+  selectType(type: string) {
+    if (type !=='-' && type !== '+') {
       throw new Error('type is unknown');
     }
-    this.$emit('update: value',type)
-  } //method
+    this.$emit('update:value', type);
+  } }
+
+</script>
 
 
 //   mounted(){
@@ -41,7 +48,7 @@ export default class Types extends Vue {
 //     }
 //   }
 
-}
+
 
 // export default {
 // name: "Types",
@@ -60,7 +67,6 @@ export default class Types extends Vue {
 //   }
 //   }
 // }
-</script>
 
 
 <style lang="scss" scoped>
