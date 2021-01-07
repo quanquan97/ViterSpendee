@@ -8,7 +8,8 @@ const recordListModel = {
   create(record: RecordItem) {
     const record2: RecordItem = clone(record);
     record2.createdAt = new Date();
-    this.data.push(record2);},
+    this.data.push(record2);
+    this.save();},
 
 
   fetch() {
@@ -18,8 +19,7 @@ const recordListModel = {
   //读数据
 
   save() {
-    window.localStorage.setItem(localStorageKeyName,
-      JSON.stringify(this.data));
+    window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.data));
   }
   //写数据
 }
