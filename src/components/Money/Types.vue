@@ -1,10 +1,10 @@
 <template>
   <div>
     <ul class="types">
-      <li :class="value === '-' && 'selected'"
+      <li :class="{[classPrefix+'-item']: classPrefix, selected: value==='-'}"
           @click="selectType('-')">支出
       </li>
-      <li :class="value === '+' && 'selected'"
+      <li :class="{[classPrefix+'-item']: classPrefix, selected: value==='+'}"
           @click="selectType('+')">收入
       </li>
     </ul>
@@ -19,7 +19,8 @@ import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component//声明一个类，在上面加上装饰器--修饰在class上 是一个组件 告诉ts 下面代码要被处理成data和method
 export default class Types extends Vue {
-  @Prop() readonly value!: string;
+  @Prop(String) readonly value!: string;
+  @Prop(String) classPrefix?: string;
 
   //@Prop(Number) xxx: number | undefined
   //undefined是初始值，一旦写了在后面就需要if判断检查，虽然麻烦，但ts会保证严谨性--有追求的前端
@@ -71,7 +72,7 @@ export default class Types extends Vue {
 
 <style lang="scss" scoped>
 .types {
-  background-color: #d9d9d9;
+  background: #C4C4C4;
   font-size: 24px;
   text-align: center;
   display: flex;
