@@ -1,31 +1,26 @@
 <template>
-<Layout>
-  <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
-
-  <ol>
-    <li v-for="(group, index) in groupedList" :key="index">
-      <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
-      <ol>
-        <li v-for="item in group.items" :key="item.id"
-            class="record">
-          <span>{{tagString(item.tags)}}</span>
-          <span class="notes">{{item.notes}}</span>
-          <span>￥{{item.amount}} </span>
-        </li>
-      </ol>
-    </li>
-  </ol>
-</Layout>
+  <Layout>
+    <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
+    <ol>
+      <li v-for="(group, index) in groupedList" :key="index">
+        <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
+        <ol>
+          <li v-for="item in group.items" :key="item.id"
+              class="record"
+          >
+            <span>{{tagString(item.tags)}}</span>
+            <span class="notes">{{item.notes}}</span>
+            <span>￥{{item.amount}} </span>
+          </li>
+        </ol>
+      </li>
+    </ol>
+  </Layout>
 </template>
-
-
-
 <script lang="ts">
-
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Tabs from '@/components/Tabs.vue';
-
 import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
@@ -57,7 +52,7 @@ export default class Statistics extends Vue {
   }
   get groupedList() {
     const {recordList} = this;
-    if (recordList.length === 0) {return []; }
+    if (recordList.length === 0) {return [];}
     const newList = clone(recordList)
         .filter(r => r.type === this.type)
         .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
@@ -84,12 +79,9 @@ export default class Statistics extends Vue {
   beforeCreate() {
     this.$store.commit('fetchRecords');
   }
-
   type = '-';
-
   recordTypeList = recordTypeList;
 }
-
 </script>
 
 <style scoped lang="scss">
