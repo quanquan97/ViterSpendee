@@ -27,7 +27,7 @@ import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class Numbers extends Vue {
-@Prop( )readonly value!: number;
+@Prop( Number )readonly value!: number;
 output = this.value.toString();
 
   inputContent(event: MouseEvent) {
@@ -55,9 +55,11 @@ output = this.value.toString();
 
     clear(){ this.output='0'}
 
-    ok() {this.$emit('update:value',this.output)
-  this.$emit('submit',this.output)
-  this.output = '0'
+    ok() {
+      const number = parseFloat(this.output);
+      this.$emit('update:value', number);
+      this.$emit('submit', number);
+      this.output = '0'
 
 }}
 </script>
@@ -96,7 +98,7 @@ output = this.value.toString();
         width: 25*2%;
       }
 
-      $bg: #f2f2f2;
+      $bg: #F2F2F2;
 
       &:nth-child(2), &:nth-child(5) {
         background-color: darken($bg, 4%);
