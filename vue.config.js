@@ -3,9 +3,12 @@
 const path = require('path')
 
 
-module.exports = {
-  lintOnSave: false,
-  chainWebpack: config =>{
+    module.exports = {
+      publicPath: process.env.NODE_ENV === 'production'
+        ? '/ViterSpendee-website/'
+        : '/',
+      lintOnSave: false,
+      chainWebpack: config =>{
     const dir = path.resolve(__dirname, 'src/assets/icons')
 
 
