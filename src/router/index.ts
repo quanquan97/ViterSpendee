@@ -37,7 +37,8 @@ const routes: Array<RouteConfig> = [
   {
     path: '*',   //路由从上往下找 ，星号表示所有的
     component: NotFound
-  },
+  }
+
 
 
 
